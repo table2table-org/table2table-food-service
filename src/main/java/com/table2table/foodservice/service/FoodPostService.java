@@ -143,6 +143,14 @@ public class FoodPostService {
         return FoodManagementUtil.convertToFoodPostDto(foodPost);
     }
 
+    public FoodPostResponse updateQuantity(Long id, FoodPostRequest request){
+        FoodPost post = foodPostRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("FoodPost not found"));
+        post.setQuantity(request.getQuantity());
+        foodPostRepository.save(post);
+        return FoodManagementUtil.convertToFoodPostDto(post);
+    }
+
     public void deleteFoodPost(Long id, String userEmail) {
         FoodPost post = foodPostRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("FoodPost not found"));
