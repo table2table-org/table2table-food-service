@@ -90,6 +90,15 @@ public class FoodPostController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("updateQuantity/{id}")
+    public ResponseEntity<FoodPostResponse> updateQuantity(
+            @PathVariable Long id,
+            @RequestBody FoodPostRequest request) throws IOException {
+
+        FoodPostResponse response = foodPostService.updateQuantity(id, request);
+        return ResponseEntity.ok(response);
+    }
+
     @DeleteMapping("deletePost/{id}")
     public ResponseEntity<?> deleteFoodPost(
             @PathVariable Long id,
