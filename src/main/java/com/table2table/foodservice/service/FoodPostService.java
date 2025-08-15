@@ -4,6 +4,7 @@ package com.table2table.foodservice.service;
 import com.table2table.foodservice.dto.FoodPostFilterRequest;
 import com.table2table.foodservice.dto.FoodPostRequest;
 import com.table2table.foodservice.dto.FoodPostResponse;
+import com.table2table.foodservice.dto.enums.FoodStatus;
 import com.table2table.foodservice.entity.FoodPost;
 import com.table2table.foodservice.repository.FoodPostRepository;
 import com.table2table.foodservice.util.FoodManagementUtil;
@@ -146,7 +147,12 @@ public class FoodPostService {
     public FoodPostResponse updateQuantity(Long id, FoodPostRequest request){
         FoodPost post = foodPostRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("FoodPost not found"));
-        post.setQuantity(request.getQuantity());
+        if(null != request.getQuantity()) {
+            post.setQuantity(request.getQuantity());
+        }
+        if(null != request.getStatus()) {
+            post.setStatus(request.getStatus());
+        }
         foodPostRepository.save(post);
         return FoodManagementUtil.convertToFoodPostDto(post);
     }
